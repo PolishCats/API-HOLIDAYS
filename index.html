@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Colombia | Holidays Dashboard</title>
+    <meta
+      name="description"
+      content="Dashboard que consume la API de Colombia y visualiza los días festivos con Plotly."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">API Colombia · Holidays</p>
+          <h1>Visualiza los feriados de Colombia con datos reales y gráficas interactivas.</h1>
+          <p class="lede">
+            Esta interfaz consume <span>api-colombia.com</span>, organiza los feriados por mes y por día de la semana,
+            y los representa con Plotly en una experiencia clara y responsive.
+          </p>
+          <div class="hero__actions">
+            <button id="reloadButton" class="button button--primary">Recargar datos</button>
+            <a class="button button--ghost" href="#charts">Ver gráficas</a>
+          </div>
+        </div>
+
+        <aside class="hero__panel">
+          <div class="stat-card">
+            <span>Total de feriados</span>
+            <strong id="totalHolidays">--</strong>
+          </div>
+          <div class="stat-card">
+            <span>Años cubiertos</span>
+            <strong id="yearSpan">--</strong>
+          </div>
+          <div class="stat-card">
+            <span>Próximo feriado</span>
+            <strong id="nextHoliday">--</strong>
+          </div>
+        </aside>
+      </section>
+
+      <section id="charts" class="grid">
+        <article class="panel panel--wide">
+          <div class="panel__header">
+            <div>
+              <p class="panel__eyebrow">Distribución mensual</p>
+              <h2>Feriados por mes</h2>
+            </div>
+            <p class="panel__meta">Conteo total agrupado por mes del año</p>
+          </div>
+          <div id="monthChart" class="chart"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel__header">
+            <div>
+              <p class="panel__eyebrow">Distribución semanal</p>
+              <h2>Feriados por día</h2>
+            </div>
+            <p class="panel__meta">Cómo se repiten los festivos en la semana</p>
+          </div>
+          <div id="weekdayChart" class="chart chart--small"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel__header">
+            <div>
+              <p class="panel__eyebrow">Detalle</p>
+              <h2>Listado de feriados</h2>
+            </div>
+            <p class="panel__meta">Resumen de los primeros registros devueltos por la API</p>
+          </div>
+          <div id="loadingState" class="loading">Cargando datos desde la API...</div>
+          <div class="table-wrap">
+            <table class="holiday-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Nombre</th>
+                  <th>Día</th>
+                </tr>
+              </thead>
+              <tbody id="holidayTableBody"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section id="messageBox" class="message message--hidden"></section>
+    </main>
+  </body>
+</html>
